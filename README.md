@@ -39,3 +39,11 @@
 ## 🚀 Additional Considerations
 - 🔒 **Authentication?** (Do users need accounts, or can they post anonymously?)
 - 📸 **File Uploads?** (Profile pictures, workout images, etc.?)
+
+
+
+
+
+
+
+[**AthletiQ Schema on dbdiagram.io**](https://dbdiagram.io/d/Copy-of-Spotify-clone-67a2838c263d6cf9a00985be)
