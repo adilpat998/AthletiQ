@@ -46,5 +46,5 @@
 
 ## Database Schema Design
 
-[![image](https://github.com/user-attachments/assets/8105e34e-d0bb-4bc6-a302-2949e2900c5e)]
+![image](https://github.com/user-attachments/assets/8105e34e-d0bb-4bc6-a302-2949e2900c5e)
 
