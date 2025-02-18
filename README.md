@@ -46,4 +46,5 @@
 
 ## Database Schema Design
 
-[**AthletiQ Schema on dbdiagram.io**](https://dbdiagram.io/d/Copy-of-Spotify-clone-67a2838c263d6cf9a00985be)
+[![image](https://github.com/user-attachments/assets/8105e34e-d0bb-4bc6-a302-2949e2900c5e)
+
