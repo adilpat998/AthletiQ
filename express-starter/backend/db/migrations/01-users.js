@@ -1,14 +1,13 @@
 'use strict';
 
 let options = {};
-// options.tableName = 'Users';
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;  // Define schema in options if in production
 }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable(options, {
+    await queryInterface.createTable('Users', {  // 'Users' should be explicitly passed
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -44,10 +43,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    }, options);
+    }, options); // Pass options as the third argument
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.dropTable(options);
+    return queryInterface.dropTable('Users', options); // Ensure correct table name
   }
 };

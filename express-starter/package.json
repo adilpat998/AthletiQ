@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "## Database Schema Design",
   "main": "index.js",
- "scripts": {
+  "scripts": {
     "install": "npm --prefix backend install backend",
     "dev:backend": "npm install --prefix backend start",
     "sequelize": "npm run --prefix backend sequelize",
@@ -13,5 +13,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "csurf": "^1.10.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
 }

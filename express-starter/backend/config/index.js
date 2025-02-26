@@ -8,6 +8,7 @@ module.exports = {
         host: process.env.DB_HOST,
         schema: process.env.SCHEMA
     },
+    dbFile: process.env.DB_FILE || 'db/dev.db', // Add this line
     jwtConfig: {
         secret: process.env.JWT_SECRET,
         expiresIn: process.env.JWT_EXPIRES_IN
