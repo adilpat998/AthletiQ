@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
-import Splash from '../components/Splash';
+import Home from '../components/Home';
+import WorkoutPage from '../components/WorkoutPage'; // Import your new WorkoutPage component
+import CreateWorkoutPage from '../components/CreateWorkoutPage';
 
 export const router = createBrowserRouter([
   {
@@ -10,7 +12,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Splash />,
+        element: <Home />,
       },
       {
         path: "login",
@@ -20,7 +22,15 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      
+      {
+        path: "workout/:id",  
+        element: <WorkoutPage />,  
+      },
+      {
+        path: "create-workout",  
+        element: <CreateWorkoutPage />,  
+      },
     ],
   },
-
 ]);

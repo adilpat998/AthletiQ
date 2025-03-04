@@ -23,12 +23,22 @@ const validateWorkoutPlan = [
     check('plan_details')
         .exists({ checkFalsy: true })
         .withMessage('Please provide the details of the workout plan in JSON format.'),
+    check('image_url_1')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide the first image URL for the workout plan.')
+        .isURL()
+        .withMessage('Image URL 1 must be a valid URL.'),
+    check('image_url_2')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide the second image URL for the workout plan.')
+        .isURL()
+        .withMessage('Image URL 2 must be a valid URL.'),
     handleValidationErrors
 ];
 
 // Create a new workout plan
 router.post('/', requireAuth, validateWorkoutPlan, async (req, res, next) => {
-    const { title, description, goal, training_days_per_week, plan_details } = req.body;
+    const { title, description, goal, training_days_per_week, plan_details, image_url_1, image_url_2 } = req.body;
 
     try {
         const workoutPlan = await WorkoutPlan.create({
@@ -37,7 +47,9 @@ router.post('/', requireAuth, validateWorkoutPlan, async (req, res, next) => {
             goal,
             training_days_per_week,
             plan_details,
-            user_id: req.user.id
+            user_id: req.user.id,
+            image_url_1,  // Add image_url_1
+            image_url_2   // Add image_url_2
         });
         return res.status(201).json(workoutPlan);
     } catch (error) {
@@ -77,7 +89,7 @@ router.get('/:id', async (req, res, next) => {
 // Update a workout plan by ID
 router.patch('/:id', requireAuth, validateWorkoutPlan, async (req, res, next) => {
     const { id } = req.params;
-    const { title, description, goal, training_days_per_week, plan_details } = req.body;
+    const { title, description, goal, training_days_per_week, plan_details, image_url_1, image_url_2 } = req.body;
 
     try {
         const workoutPlan = await WorkoutPlan.findByPk(id);
@@ -99,6 +111,8 @@ router.patch('/:id', requireAuth, validateWorkoutPlan, async (req, res, next) =>
         workoutPlan.goal = goal;
         workoutPlan.training_days_per_week = training_days_per_week;
         workoutPlan.plan_details = plan_details;
+        workoutPlan.image_url_1 = image_url_1;  // Update image_url_1
+        workoutPlan.image_url_2 = image_url_2;  // Update image_url_2
 
         await workoutPlan.save();
 

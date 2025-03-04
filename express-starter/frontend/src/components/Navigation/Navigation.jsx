@@ -1,19 +1,13 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import { useSelector } from "react-redux";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+    <nav className="navbar">
+      <NavLink to="/" className="home-button">Home</NavLink>
+      <ProfileButton className="profile-button" />
+    </nav>
   );
 }
 

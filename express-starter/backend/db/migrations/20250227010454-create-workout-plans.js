@@ -44,6 +44,15 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
+      },
+      // Adding two image URL fields
+      image_url_1: {
+        type: Sequelize.STRING, // URL as a string
+        allowNull: true // Allow this to be optional
+      },
+      image_url_2: {
+        type: Sequelize.STRING, // URL as a string
+        allowNull: true // Allow this to be optional
       }
     });
   },

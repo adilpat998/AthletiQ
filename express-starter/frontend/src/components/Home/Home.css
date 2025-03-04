@@ -1,0 +1,108 @@
+/* General page styling */
+.home-container {
+    padding: 2rem;
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .title {
+    font-size: 3rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  /* Container for the workout plans */
+  .workout-plans-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  /* Loader and error text */
+  .loading-text {
+    font-size: 1.5rem;
+    color: #555;
+  }
+  
+  .error-text {
+    color: red;
+    font-size: 1.5rem;
+  }
+  
+  /* Styling for the workout cards */
+  .workout-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .workout-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    max-width: 350px; /* Adjust the width to avoid overflow */
+  }
+  
+  /* Image inside each workout card */
+  .workout-image {
+    width: 100%; /* Make the image responsive and take up the full width of the container */
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Information about each workout plan */
+  .workout-info {
+    padding: 0;
+    text-align: left;
+    overflow: hidden; /* Ensure content stays inside the card */
+  }
+  
+  .workout-title {
+    font-size: 10px; /* Adjusts size based on screen width */
+    color: #333;
+    text-align: center;
+    white-space: normal; /* Allow wrapping */
+    word-wrap: break-word; /* Ensure long words break properly */
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  
+  .workout-description {
+    color: #777;
+    margin-bottom: 1rem;
+    white-space: nowrap; /* Prevent the text from wrapping to the next line */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Show ellipsis when text overflows */
+    max-width: 100%; /* Ensure the description is constrained to the card's width */
+  }
+  .review-text {
+    color: #888;
+    font-style: italic;
+    margin-top: 1rem;
+  }
+  
+  strong {
+    color: #333;
+  }
+  
+  .workout-image {
+    width: 100%;  /* Make the image responsive and take up the full width of the container */
+    height: auto;  /* Maintain aspect ratio */
+    object-fit: contain;  /* Ensure the full image is visible without distortion */
+  }
+  

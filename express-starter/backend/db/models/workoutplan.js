@@ -34,6 +34,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
+    },
+    // Added image URLs
+    image_url_1: {
+      type: DataTypes.STRING, // URL as a string
+      allowNull: true // Optional
+    },
+    image_url_2: {
+      type: DataTypes.STRING, // URL as a string
+      allowNull: true // Optional
     }
   }, {
     tableName: 'WorkoutPlans',

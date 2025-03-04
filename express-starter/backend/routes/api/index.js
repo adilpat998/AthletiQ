@@ -11,7 +11,7 @@ const reviewsRouter = require('./reviews.js');
 //You can use setTokenCookie as a func to set cookie for user
 
 router.use(restoreUser);
-router.use('/workout-plans', workoutPlansRouter);
+router.use('/workoutPlans', workoutPlansRouter);
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/reviews', reviewsRouter);

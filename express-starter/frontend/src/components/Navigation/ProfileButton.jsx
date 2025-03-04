@@ -5,14 +5,14 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
-function ProfileButton() {
+function ProfileButton({ className }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    e.stopPropagation();
     setShowMenu(!showMenu);
   };
 
@@ -26,7 +26,6 @@ function ProfileButton() {
     };
 
     document.addEventListener("click", closeMenu);
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
@@ -40,11 +39,11 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} className={className}>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <ul className="profile-dropdown" ref={ulRef}>
           {user ? (
             <>
               <li>{user.username}</li>
@@ -72,5 +71,6 @@ function ProfileButton() {
     </>
   );
 }
+
 
 export default ProfileButton;
