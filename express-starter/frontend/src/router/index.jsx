@@ -5,6 +5,7 @@ import Layout from './Layout';
 import Home from '../components/Home';
 import WorkoutPage from '../components/WorkoutPage'; // Import your new WorkoutPage component
 import CreateWorkoutPage from '../components/CreateWorkoutPage';
+import EditWorkoutPlan from '../components/EditWorkoutPlan';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "create-workout",  
         element: <CreateWorkoutPage />,  
+      },
+      {
+        path: "edit-workout/:id",  
+        element: <EditWorkoutPlan />,  
       },
     ],
   },

@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { csrfFetch } from '../../redux/csrf'; // Import csrfFetch
-import './WorkoutPage.css'; // Link to the WorkoutPage CSS file
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // Import useSelector
+import { csrfFetch } from '../../redux/csrf'; 
+import './WorkoutPage.css'; 
 
 const WorkoutPage = () => {
-  const { id } = useParams(); // Get the workout ID from the URL params
-  const [workoutPlan, setWorkoutPlan] = useState(null); // Local state for the workout plan
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const { id } = useParams();
+  const navigate = useNavigate(); // For redirecting after delete
+  const [workoutPlan, setWorkoutPlan] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const currentUser = useSelector(state => state.session.user); // Get logged-in user
 
   useEffect(() => {
     const fetchWorkoutPlan = async () => {
@@ -15,19 +18,35 @@ const WorkoutPage = () => {
         const response = await csrfFetch(`/api/workoutPlans/${id}`);
         if (response.ok) {
           const data = await response.json();
-          setWorkoutPlan(data); // Set workout plan to state
+          setWorkoutPlan(data);
         } else {
           throw new Error('Failed to fetch the workout plan');
         }
       } catch (err) {
-        setError(err.message); // Set error message if fetch fails
+        setError(err.message);
       } finally {
-        setLoading(false); // Set loading to false when done
+        setLoading(false);
       }
     };
 
-    fetchWorkoutPlan(); // Call the fetch function when the component mounts
+    fetchWorkoutPlan();
   }, [id]);
+
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this workout plan?')) return;
+  
+    try {
+      const response = await csrfFetch(`/api/workoutPlans/${id}`, { method: 'DELETE' });
+  
+      if (response.ok) {
+        navigate('/'); // Redirect to home page after deletion
+      } else {
+        throw new Error('Failed to delete the workout plan.');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   if (loading) return <p>Loading workout plan...</p>;
   if (error) return <p className="error-text">{error}</p>;
@@ -68,10 +87,21 @@ const WorkoutPage = () => {
           ))}
         </div>
       </div>
-  
-      {/* Button to Create Workout */}
+
+      {/* Show Delete and Edit Button if the logged-in user owns the workout plan */}
+      {currentUser && currentUser.id === workoutPlan.user_id && (
+        <>
+          <button className="edit-workout-btn" onClick={() => navigate(`/edit-workout/${id}`)}>
+            Edit Workout Plan
+          </button>
+          <button className="delete-workout-btn" onClick={handleDelete}>
+            Delete Workout Plan
+          </button>
+        </>
+      )}
+
       <div className="create-workout-container">
-        <button className="create-workout-btn" onClick={() => window.location.href = '/create-workout'}>
+        <button className="create-workout-btn" onClick={() => navigate('/create-workout')}>
           Create Your Own Workout Plan
         </button>
       </div>
