@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './WorkoutPage.module.css';
 
 const Modal = ({ isOpen, onClose, title, children }) => {

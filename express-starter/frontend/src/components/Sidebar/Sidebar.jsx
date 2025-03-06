@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Sidebar.css';
 
 const Sidebar = ({ onToggle, collapsed: propCollapsed, mobileOpen }) => {

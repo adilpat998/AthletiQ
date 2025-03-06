@@ -75,7 +75,6 @@ export const thunkLogout = () => async (dispatch) => {
 const initialState = { user: null };
 
 function sessionReducer(state = initialState, action) {
-    let newState;
     switch (action.type) {
         case SET_USER:
             return { ...state, user: action.payload };
