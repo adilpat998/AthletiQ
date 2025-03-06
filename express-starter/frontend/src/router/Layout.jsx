@@ -27,7 +27,7 @@ export default function Layout() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Function to handle sidebar state changes
+ 
   const handleSidebarToggle = (collapsed) => {
     setSidebarCollapsed(collapsed);
   };

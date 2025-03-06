@@ -52,14 +52,14 @@
   width: 100%;
   max-width: 550px;
   height: auto;
-  max-height: 400px; /* Added max-height to keep images from being too tall */
-  object-fit: contain; /* Changed from cover to contain to show full image */
-  background-color: rgba(30, 34, 40, 0.8); /* Added background color */
+  max-height: 400px; 
+  object-fit: contain; 
+  background-color: rgba(30, 34, 40, 0.8);
   border-radius: 8px;
   border: 3px solid rgba(97, 218, 251, 0.3);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(97, 218, 251, 0.2);
   transition: all 0.3s ease;
-  padding: 10px; /* Added padding to give some space around the image */
+  padding: 10px; 
 }
 
 .image:hover {

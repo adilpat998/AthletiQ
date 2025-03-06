@@ -1,6 +1,6 @@
 /* General page styling */
 .container {
-  padding: 0; /* Removed padding to eliminate the gap with navbar */
+  padding: 0; 
   background: linear-gradient(to bottom, #1a1e24, #282c34);
   font-family: 'Arial', sans-serif;
   min-height: 100vh;
@@ -10,7 +10,7 @@
 .title {
   font-size: 3rem;
   text-align: center;
-  margin-top: 2rem; /* Added top margin instead */
+  margin-top: 2rem;
   margin-bottom: 2rem;
   background: linear-gradient(45deg, #61dafb, #4fa8e0, #3a89c5);
   background-size: 200% auto;
@@ -40,7 +40,7 @@
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding: 0 2rem; /* Add horizontal padding instead */
+  padding: 0 2rem; 
 }
 
 .heading {
@@ -105,7 +105,7 @@
 .cardImageContainer {
   width: 100%;
   height: 220px;
-  background-color: #1a1e24; /* Darker background for better contrast */
+  background-color: #1a1e24; 
   border-bottom: 1px solid rgba(97, 218, 251, 0.2);
   overflow: hidden;
   display: flex;
@@ -117,9 +117,9 @@
 .cardImage {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Keep contain to prevent cropping */
+  object-fit: contain; 
   transition: all 0.5s ease;
-  padding: 10px; /* Add padding to keep images from touching the edges */
+  padding: 10px; 
 }
 
 .card:hover .cardImage {

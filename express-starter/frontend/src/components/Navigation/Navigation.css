@@ -5,8 +5,7 @@
   padding: 15px 20px;
   background: linear-gradient(to right, #1a1e24, #282c34, #1a1e24);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  /* Removed margin-bottom that was causing the gap */
-  position: relative; /* Ensures the box-shadow is visible */
+  position: relative; 
   border-bottom: 2px solid #61dafb;
 }
 
@@ -53,7 +52,7 @@
   color: white;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
-  z-index: 1; /* Ensures the home button stays clickable */
+  z-index: 1; 
   padding: 8px 15px;
   border-radius: 20px;
   border: 1px solid transparent;
@@ -78,10 +77,10 @@
   color: white;
   font-size: 18px;
   font-weight: bold;
-  position: relative; /* Keeps the dropdown positioned relative to the button */
-  z-index: 1; /* Ensures the profile button stays clickable */
+  position: relative; 
+  z-index: 1; 
   transition: all 0.3s ease;
-  padding: 0; /* Remove padding to ensure perfect circle */
+  padding: 0;
 }
 
 .profile-button:hover {
@@ -98,8 +97,8 @@
 
 .profile-dropdown {
   position: absolute;
-  top: 70px; /* Slightly adjust this if needed */
-  right: 0;  /* Position to the right of the profile button */
+  top: 70px; 
+  right: 0;  
   background-color: #282c34;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   list-style-type: none;

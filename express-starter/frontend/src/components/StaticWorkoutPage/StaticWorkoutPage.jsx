@@ -311,7 +311,7 @@ const StaticWorkoutPage = () => {
   const [workout, setWorkout] = useState(null);
 
   useEffect(() => {
-    // Get workout data based on ID from the URL parameter
+    
     if (workoutData[id]) {
       setWorkout(workoutData[id]);
     }

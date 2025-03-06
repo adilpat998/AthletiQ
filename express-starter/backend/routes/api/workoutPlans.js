@@ -48,8 +48,8 @@ router.post('/', requireAuth, validateWorkoutPlan, async (req, res, next) => {
             training_days_per_week,
             plan_details,
             user_id: req.user.id,
-            image_url_1,  // Add image_url_1
-            image_url_2   // Add image_url_2
+            image_url_1,  
+            image_url_2  
         });
         return res.status(201).json(workoutPlan);
     } catch (error) {
@@ -111,8 +111,8 @@ router.patch('/:id', requireAuth, validateWorkoutPlan, async (req, res, next) =>
         workoutPlan.goal = goal;
         workoutPlan.training_days_per_week = training_days_per_week;
         workoutPlan.plan_details = plan_details;
-        workoutPlan.image_url_1 = image_url_1;  // Update image_url_1
-        workoutPlan.image_url_2 = image_url_2;  // Update image_url_2
+        workoutPlan.image_url_1 = image_url_1;  
+        workoutPlan.image_url_2 = image_url_2;  
 
         await workoutPlan.save();
 

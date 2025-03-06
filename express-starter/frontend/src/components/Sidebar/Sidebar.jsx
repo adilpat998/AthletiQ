@@ -6,7 +6,7 @@ const Sidebar = ({ onToggle, collapsed: propCollapsed, mobileOpen }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    // Handle window resize to detect mobile view
+  
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -16,7 +16,7 @@ const Sidebar = ({ onToggle, collapsed: propCollapsed, mobileOpen }) => {
   }, []);
 
   useEffect(() => {
-    // Sync collapsed state with props
+ 
     if (propCollapsed !== undefined) {
       setCollapsed(propCollapsed);
     }
@@ -33,7 +33,7 @@ const Sidebar = ({ onToggle, collapsed: propCollapsed, mobileOpen }) => {
     alert('Coming Soon! This feature is under development.');
   };
 
-  // Determine sidebar classes based on state
+
   const sidebarClasses = [
     'sidebar',
     collapsed ? 'collapsed' : '',

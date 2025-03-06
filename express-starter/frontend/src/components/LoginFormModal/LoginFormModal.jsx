@@ -25,7 +25,7 @@ function LoginFormModal() {
       setErrors(serverResponse);
     } else {
       closeModal();
-      // Add window.location.reload() to refresh the page after successful login
+
       window.location.reload();
     }
   };
@@ -42,7 +42,7 @@ function LoginFormModal() {
     
     if (!response) {
       closeModal();
-      // Add window.location.reload() to refresh the page after successful demo login
+     
       window.location.reload();
     }
   };

@@ -116,7 +116,7 @@
     text-shadow: 0 0 8px rgba(97, 218, 251, 0.5);
   }
   
-  /* Server error message */
+  
   .server-error {
     padding: 10px;
     background: rgba(255, 107, 107, 0.1);
@@ -139,7 +139,7 @@
     }
   }
   
-  /* Media query for smaller screens */
+ 
   @media (max-width: 500px) {
     .signup-form-container {
       width: 90%;

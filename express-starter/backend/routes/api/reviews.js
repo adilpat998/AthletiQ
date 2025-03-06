@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
                 comment: review.comment,
                 created_at: review.created_at,
                 user: review.User.username,  // Adding username for the user who left the review
-                workout: review.WorkoutPlan.title,  // Adding workout title
+                workout: review.WorkoutPlan.title,  
             })),
         });
     } catch (error) {
@@ -90,8 +90,8 @@ router.get('/:id', async (req, res) => {
                 rating: review.rating,
                 comment: review.comment,
                 created_at: review.created_at,
-                user: review.User.username,  // Adding username for the user who left the review
-                workout: review.WorkoutPlan.title,  // Adding workout title
+                user: review.User.username,  
+                workout: review.WorkoutPlan.title,  
             },
         });
     } catch (error) {
@@ -107,7 +107,7 @@ router.patch('/:id', requireAuth, async (req, res) => {
     const { user } = req;
 
     try {
-        const review = await Review.unscoped().findByPk(id); // Override defaultScope
+        const review = await Review.unscoped().findByPk(id); 
 
         if (!review) {
             return res.status(404).json({ message: 'Review not found' });
@@ -143,7 +143,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
     const { user } = req;
 
     try {
-        const review = await Review.unscoped().findByPk(id); // Override defaultScope
+        const review = await Review.unscoped().findByPk(id); 
 
         if (!review) {
             return res.status(404).json({ message: 'Review not found' });
@@ -157,7 +157,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
         // Delete the review
         await review.destroy();
 
-        return res.status(204).end(); // No content response
+        return res.status(204).end();
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Error deleting review' });
@@ -176,8 +176,8 @@ router.get('/workout-plan/:workoutId', async (req, res) => {
             },
             include: [
                 {
-                    model: User, // Include user data (e.g., username) for each review
-                    attributes: ['id', 'username'], // Include specific user fields, adjust if needed
+                    model: User, 
+                    attributes: ['id', 'username'],
                 },
             ],
         });

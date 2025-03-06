@@ -1,85 +1,12 @@
 /* Layout and App-level CSS fixes */
 
 /* Reset and base styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-
-
-.app-container, 
-.app-layout {
-  position: relative;
-  min-height: 100vh;
-  width: 100%;
-}
-
-/* Navigation styling */
 nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px; /* Consistent height */
-  z-index: 101; /* Above sidebar */
-}
-
-/* Main content area with sidebar adjustment */
-.main-content-area {
-  display: flex;
-  width: 100%;
-  padding-top: 60px; /* Height of navbar */
-  position: relative;
-}
-
-/* Outlet container styles */
-.outlet-container {
-  flex: 1;
-  margin-left: 250px; /* Match sidebar width */
-  transition: margin-left 0.3s ease;
-  min-height: calc(100vh - 60px); /* Full height minus navbar */
-  width: calc(100% - 250px);
-  padding: 20px;
-}
-
-.outlet-container.sidebar-collapsed {
-  margin-left: 60px; /* Width of collapsed sidebar */
-  width: calc(100% - 60px);
-}
-
-/* Modal container fixes */
-.modal {
-  z-index: 1000; /* Above everything */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .outlet-container, 
-  .outlet-container.sidebar-collapsed {
-    margin-left: 0;
-    width: 100%;
-  }
-  
-  /* Mobile sidebar toggle button */
-  .mobile-menu-toggle {
-    display: block;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 200;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #3a89c5, #61dafb);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    border: none;
-    cursor: pointer;
-  }
+  height: 60px; 
+  z-index: 101; 
 }

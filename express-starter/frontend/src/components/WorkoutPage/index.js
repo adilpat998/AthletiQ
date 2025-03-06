@@ -1,3 +1,3 @@
-import WorkoutPage from './WorkoutPage'; // Import the WorkoutPage component
+import WorkoutPage from './WorkoutPage'; 
 
-export default WorkoutPage; // Export the WorkoutPage component for easy import in other files
+export default WorkoutPage; 

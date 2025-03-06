@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const WorkoutPlan = sequelize.define('WorkoutPlan', {
     id: {
-      type: DataTypes.INTEGER,  // Changed from UUID to INTEGER
+      type: DataTypes.INTEGER,  
       allowNull: false,
-      autoIncrement: true,  // Enable auto-increment
+      autoIncrement: true, 
       primaryKey: true
     },
     user_id: {
-      type: DataTypes.INTEGER,  // Ensure it matches Users.id
+      type: DataTypes.INTEGER,  
       allowNull: false
     },
     title: {
@@ -35,14 +35,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
-    // Added image URLs
+   
     image_url_1: {
-      type: DataTypes.STRING, // URL as a string
-      allowNull: true // Optional
+      type: DataTypes.STRING, 
+      allowNull: true 
     },
     image_url_2: {
-      type: DataTypes.STRING, // URL as a string
-      allowNull: true // Optional
+      type: DataTypes.STRING, 
+      allowNull: true 
     }
   }, {
     tableName: 'WorkoutPlans',

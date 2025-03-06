@@ -13,9 +13,9 @@ const CreateWorkoutPage = () => {
   const [imageUrl1, setImageUrl1] = useState('');
   const [imageUrl2, setImageUrl2] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(''); // State to hold error messages
+  const [error, setError] = useState(''); 
 
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
   const handleWeekChange = (e, weekIndex, day) => {
     const { value } = e.target;
@@ -31,7 +31,7 @@ const CreateWorkoutPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(''); // Reset error before submitting
+    setError('');
 
     const workoutPlan = {
       title,
@@ -50,8 +50,8 @@ const CreateWorkoutPage = () => {
       });
 
       if (response.ok) {
-        const data = await response.json(); // Assuming the response contains the newly created plan data, including the id
-        const newPlanId = data.id; // Get the ID of the newly created plan
+        const data = await response.json(); 
+        const newPlanId = data.id; 
 
         // Redirect immediately after successful creation
         navigate(`/workout/${newPlanId}`);
@@ -67,7 +67,7 @@ const CreateWorkoutPage = () => {
         setImageUrl2('');
       } else {
         const errorData = await response.json();
-        setError(errorData.errors || 'Error creating workout plan'); // Show error message if any
+        setError(errorData.errors || 'Error creating workout plan'); 
       }
     } catch (err) {
       // Handle errors (e.g., network issues)

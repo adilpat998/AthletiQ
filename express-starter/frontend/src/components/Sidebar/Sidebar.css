@@ -12,7 +12,7 @@
     z-index: 100;
     display: flex;
     flex-direction: column;
-    padding-top: 60px; /* Space for the navbar */
+    padding-top: 60px;
     overflow-y: auto;
   }
   
@@ -125,7 +125,7 @@
     margin-top: 15px;
   }
   
-  /* AI Section Styling - Highlighted for importance */
+
   .ai-section {
     margin-top: 0;
     background: rgba(97, 218, 251, 0.05);
@@ -190,7 +190,7 @@
     display: none;
   }
   
-  /* Coming soon badge */
+  
   .coming-soon {
     position: relative;
   }
@@ -212,8 +212,7 @@
   .sidebar.collapsed .coming-soon::after {
     display: none;
   }
-  
-  /* Adjust the main content to accommodate the sidebar */
+
   main {
     margin-left: 250px;
     transition: all 0.3s ease;
@@ -248,43 +247,41 @@
     }
   }
 
-  /* Add these styles to your Sidebar.css file */
 
-/* Collapsed sidebar styling improvements */
+
+
 .sidebar.collapsed {
-  width: 70px; /* Slightly wider for better icon display */
+  width: 70px; 
 }
 
-/* Improved icon display in collapsed state */
+
 .sidebar.collapsed .sidebar-icon {
-  margin: 0 auto; /* Center the icon */
-  font-size: 22px; /* Larger icons for better visibility */
+  margin: 0 auto; 
+  font-size: 22px;
   width: 100%;
   padding: 2px 0;
   transition: transform 0.2s ease;
 }
 
-/* Add hover effect to icons in collapsed state */
 .sidebar.collapsed .sidebar-item:hover .sidebar-icon {
   transform: scale(1.15);
   color: #61dafb;
 }
 
-/* Hide all text in collapsed state */
 .sidebar.collapsed .sidebar-text,
 .sidebar.collapsed .section-title,
 .sidebar.collapsed .sidebar-title {
-  display: none; /* Completely hide instead of just zero opacity */
+  display: none;
 }
 
-/* Special styling for section dividers in collapsed mode */
+
 .sidebar.collapsed .sidebar-section {
   padding: 5px 0;
   margin: 5px 0;
   border-top: 1px solid rgba(97, 218, 251, 0.1);
 }
 
-/* Remove left padding from items in collapsed state */
+
 .sidebar.collapsed .sidebar-item {
   padding: 12px 0;
   justify-content: center;
@@ -321,7 +318,7 @@
   transform: translateX(0);
 }
 
-/* Adjust collapsed sidebar toggle button */
+
 .sidebar.collapsed .toggle-button {
   right: -15px;
 }
@@ -332,7 +329,7 @@ main.sidebar-collapsed {
   width: calc(100% - 70px);
 }
 
-/* Enhanced AI section indicator in collapsed mode */
+
 .sidebar.collapsed .ai-section {
   border-left: none;
   position: relative;
@@ -347,20 +344,20 @@ main.sidebar-collapsed {
   width: 3px;
   background: linear-gradient(to bottom, #61dafb, rgba(97, 218, 251, 0.3));
 }
-/* Add these CSS fixes to your Sidebar.css */
 
-/* Fix horizontal scrollbar */
+
+
 .sidebar {
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  overflow-y: auto; /* Keep vertical scrolling */
+  overflow-x: hidden; 
+  overflow-y: auto; 
   width: 250px;
-  max-width: 250px; /* Enforce maximum width */
-  box-sizing: border-box; /* Include padding in width calculation */
+  max-width: 250px; 
+  box-sizing: border-box; 
 }
 
 .sidebar-content {
   width: 100%;
-  max-width: 100%; /* Ensure content doesn't exceed container */
+  max-width: 100%; 
   overflow-x: hidden;
   box-sizing: border-box;
 }
@@ -387,14 +384,13 @@ main.sidebar-collapsed {
   text-overflow: ellipsis;
 }
 
-/* Ensure collapsed state also doesn't have scrollbar */
+
 .sidebar.collapsed {
   overflow-x: hidden;
   max-width: 70px;
   width: 70px;
 }
 
-/* Fix tooltip positioning to prevent overflow */
 .sidebar.collapsed .sidebar-item::after {
   width: max-content;
   max-width: 200px;

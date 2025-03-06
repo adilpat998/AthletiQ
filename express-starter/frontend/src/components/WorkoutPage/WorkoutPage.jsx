@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { csrfFetch } from '../../redux/csrf'; 
-import styles from './WorkoutPage.module.css'; // Updated import for CSS modules
-import Modal from './Modal'; // Import the separate Modal component
+import styles from './WorkoutPage.module.css'; 
+import Modal from './Modal'; 
 
 const WorkoutPage = () => {
   const { id } = useParams();
@@ -127,10 +127,10 @@ const WorkoutPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Add the user info to the review for display
+       
         const reviewWithUser = {
           ...data.review,
-          user_id: Number(currentUser.id), // Ensure the user_id is set as a number
+          user_id: Number(currentUser.id), 
           User: { 
             username: currentUser.username, 
             id: Number(currentUser.id) 
@@ -138,7 +138,7 @@ const WorkoutPage = () => {
         };
         setReviews([...reviews, reviewWithUser]);
         setNewReview({ rating: 5, comment: '' });
-        setIsCreateModalOpen(false); // Close the modal after submission
+        setIsCreateModalOpen(false); 
       } else {
         throw new Error('Failed to submit review');
       }
@@ -186,7 +186,7 @@ const WorkoutPage = () => {
         );
         setReviews(updatedReviews);
         setEditingReview(null);
-        setIsEditModalOpen(false); // Close the modal after update
+        setIsEditModalOpen(false);
       } else {
         throw new Error('Failed to update review');
       }
@@ -210,7 +210,6 @@ const WorkoutPage = () => {
       });
 
       if (response.ok) {
-        // Remove the deleted review from state
         setReviews(reviews.filter(rev => rev.id !== reviewToDelete));
         setIsDeleteModalOpen(false);
         setReviewToDelete(null);
@@ -253,11 +252,10 @@ const WorkoutPage = () => {
   const hasUserReviewed = () => {
     if (!currentUser) return false;
     
-    // Make sure we're comparing numbers with numbers
     const currentUserId = Number(currentUser.id);
     
     return reviews.some(review => {
-      // Look for user_id in either the review object or the User object
+  
       const reviewUserId = review.user_id !== undefined ? Number(review.user_id) : 
                            review.User?.id !== undefined ? Number(review.User.id) : null;
       
@@ -270,7 +268,6 @@ const WorkoutPage = () => {
     if (!currentUser) return false;
     
     const currentUserId = Number(currentUser.id);
-    // Look for user_id in either the review object or the User object
     const reviewUserId = review.user_id !== undefined ? Number(review.user_id) : 
                          review.User?.id !== undefined ? Number(review.User.id) : null;
     

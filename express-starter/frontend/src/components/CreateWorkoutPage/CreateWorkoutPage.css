@@ -7,7 +7,7 @@
     color: #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-    text-align: center; /* Centers text and inline elements */
+    text-align: center; 
 }
   
 /* Heading */
@@ -20,7 +20,7 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers all form elements */
+    align-items: center; 
 }
   
 /* Labels */
@@ -28,13 +28,13 @@ label {
     font-weight: bold;
     margin: 10px 0 5px;
     display: block;
-    text-align: center; /* Centers labels */
+    text-align: center;
 }
   
 /* Input fields */
 input, textarea {
     width: 90%;
-    max-width: 500px; /* Prevents stretching */
+    max-width: 500px; 
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -42,7 +42,7 @@ input, textarea {
     color: #fff;
     font-size: 14px;
     display: block;
-    margin: 0 auto; /* Centers input fields */
+    margin: 0 auto; 
 }
   
 textarea {
@@ -53,13 +53,13 @@ textarea {
 /* Ensure exercise entry fields stay full width */
 .exercise-entry textarea {
     width: 100%;
-    max-width: 100%; /* Allow full width inside the container */
+    max-width: 100%; 
 }
   
 /* Flexbox for small input sections */
 .flex-inputs {
     display: flex;
-    justify-content: center; /* Centers the number inputs */
+    justify-content: center; 
     gap: 10px;
     width: 100%;
 }
@@ -77,7 +77,7 @@ textarea {
     border-radius: 8px;
     background-color: #111;
     text-align: center;
-    width: 100%; /* Ensures full width */
+    width: 100%; 
 }
   
 /* Exercise entry section */
@@ -85,7 +85,7 @@ textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Ensure it fills the container */
+    width: 100%; 
     margin-bottom: 10px;
 }
   
@@ -110,7 +110,7 @@ button {
     border-radius: 5px;
     font-size: 16px;
     width: 90%;
-    max-width: 300px; /* Centers the button */
+    max-width: 300px; 
 }
   
 button:disabled {
