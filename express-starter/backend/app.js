@@ -5,6 +5,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const path = require('path'); // Add this line
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 const { ValidationError } = require('sequelize');
@@ -15,7 +16,6 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
 
 // Security Middleware
 if (!isProduction) {
@@ -41,11 +41,25 @@ app.use(
     })
 );
 
-app.use(routes);
+// API routes
+app.use('/api', routes); // Update this line to use /api prefix
+
+// Serve static files from the React app
+if (isProduction) {
+    // Serve the frontend's index.html file at the root route
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+  
+    // Serve the static assets in the frontend's build folder
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+  
+    // Serve the frontend's index.html file at all other routes NOT starting with /api
+    app.get(/^(?!\/?api).*/, (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+    });
+}
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
-    // console.log(_req._parsedOriginalUrl.pathname, " ^^^^^^")
     const err = new Error("The requested resource couldn't be found.");
     err.title = "Resource Not Found";
     err.errors = { message: "The requested resource couldn't be found." };
@@ -53,32 +67,6 @@ app.use((_req, _res, next) => {
     next(err);
 });
 
-
-
-// Process sequelize errors
-app.use((err, _req, _res, next) => {
-    // check if error is a Sequelize error:
-    if (err instanceof ValidationError) {
-        let errors = {};
-        for (let error of err.errors) {
-            errors[error.path] = error.message;
-        }
-        err.title = 'Validation error';
-        err.errors = errors;
-    }
-    next(err);
-});
-
-// Error formatter
-app.use((err, _req, res, _next) => {
-    res.status(err.status || 500);
-    console.error(err);
-    res.json({
-        title: err.title || 'Server Error',
-        message: err.message,
-        errors: err.errors,
-        stack: isProduction ? null : err.stack
-    });
-});
+// Rest of your error handling code...
 
 module.exports = app;
