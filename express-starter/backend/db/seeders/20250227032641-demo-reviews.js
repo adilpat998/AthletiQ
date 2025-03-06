@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Reviews', [
+    await queryInterface.bulkInsert(options, [
       {
         workout_id: 3, 
         user_id: 2,     
@@ -29,10 +29,10 @@ module.exports = {
         comment: 'Decent powerlifting plan, but could use more variation.',
         created_at: new Date(),
       },
-    ]);
+    ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Reviews', null, {});
+    await queryInterface.bulkDelete(options, null, {});
   },
 };

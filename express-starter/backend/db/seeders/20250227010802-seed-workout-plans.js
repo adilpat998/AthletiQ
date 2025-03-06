@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('WorkoutPlans', [
+    await queryInterface.bulkInsert(options, [
       {
         user_id: 1,
         title: 'Full Body Strength Training',
@@ -84,10 +84,10 @@ module.exports = {
         image_url_2: 'https://qph.cf2.quoracdn.net/main-qimg-6dda05f0ee8ffeccd5b9435f8a05f834-pjlq',
         created_at: new Date()
       }
-    ]);
+    ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('WorkoutPlans', null, {});
+    await queryInterface.bulkDelete(options, null, {});
   }
 };
