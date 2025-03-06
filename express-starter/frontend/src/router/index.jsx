@@ -6,6 +6,7 @@ import Home from '../components/Home';
 import WorkoutPage from '../components/WorkoutPage'; // Import your new WorkoutPage component
 import CreateWorkoutPage from '../components/CreateWorkoutPage';
 import EditWorkoutPlan from '../components/EditWorkoutPlan';
+import StaticWorkoutPage from '../components/StaticWorkoutPage';
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "edit-workout/:id",  
         element: <EditWorkoutPlan />,  
+      },
+      {
+        path: "/static-workout/:id",  
+        element: <StaticWorkoutPage />,  
       },
     ],
   },

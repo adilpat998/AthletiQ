@@ -1,56 +1,121 @@
-
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #282c34;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(to right, #1a1e24, #282c34, #1a1e24);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* Removed margin-bottom that was causing the gap */
+  position: relative; /* Ensures the box-shadow is visible */
+  border-bottom: 2px solid #61dafb;
+}
+
+.site-title {
+  font-size: 28px;
+  font-weight: 800;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #61dafb, #4fa8e0, #3a89c5);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  animation: gradient 3s ease infinite;
+}
+
+.site-title:hover {
+  transform: translateX(-50%) scale(1.05);
+  text-shadow: 0 0 15px rgba(97, 218, 251, 0.5);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .home-button {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+  50% {
+    background-position: 100% 50%;
   }
-  
-  .home-button:hover {
-    color: #61dafb;
+  100% {
+    background-position: 0% 50%;
   }
-  
-  .profile-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative; /* Keeps the dropdown positioned relative to the button */
-  }
-  
-  .profile-dropdown {
-    position: absolute;
-    top: 70px; /* Slightly adjust this if needed */
-    right: 0;  /* Position to the right of the profile button */
-    background-color: #282c34;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border-radius: 5px;
-    width: max-content;
-    min-width: 150px;
-    z-index: 10;
-  }
-  
-  .profile-dropdown li {
-    padding: 10px;
-    color: white;
-  }
-  
-  .profile-dropdown li:hover {
-    background-color: #61dafb;
-  }
-  
+}
+
+.home-button {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  z-index: 1; /* Ensures the home button stays clickable */
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+}
+
+.home-button:hover {
+  color: #61dafb;
+  border: 1px solid #61dafb;
+  box-shadow: 0 0 8px rgba(97, 218, 251, 0.5);
+}
+
+.profile-button {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  position: relative; /* Keeps the dropdown positioned relative to the button */
+  z-index: 1; /* Ensures the profile button stays clickable */
+  transition: all 0.3s ease;
+  padding: 0; /* Remove padding to ensure perfect circle */
+}
+
+.profile-button:hover {
+  color: #61dafb;
+  border-color: #61dafb;
+  box-shadow: 0 0 8px rgba(97, 218, 251, 0.5);
+}
+
+.profile-button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 70px; /* Slightly adjust this if needed */
+  right: 0;  /* Position to the right of the profile button */
+  background-color: #282c34;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+  width: max-content;
+  min-width: 150px;
+  z-index: 10;
+}
+
+.profile-dropdown li {
+  padding: 10px;
+  color: white;
+}
+
+.profile-dropdown li:hover {
+  background-color: #61dafb;
+}

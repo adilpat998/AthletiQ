@@ -39,53 +39,71 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+    <div className="signup-form-container">
+      <h1 className="signup-form-title">Sign Up</h1>
+      {errors.server && <div className="server-error">{errors.server}</div>}
+      
+      <form onSubmit={handleSubmit} className="signup-form">
+        <div className="form-group">
+          <label className="form-label">
+            Email
+          </label>
           <input
+            className="form-input"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
+          {errors.email && <p className="error-message">{errors.email}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">
+            Username
+          </label>
           <input
+            className="form-input"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
+          {errors.username && <p className="error-message">{errors.username}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">
+            Password
+          </label>
           <input
+            className="form-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
+          {errors.password && <p className="error-message">{errors.password}</p>}
+          <p className="rules-text">Password must be at least 6 characters long</p>
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">
+            Confirm Password
+          </label>
           <input
+            className="form-input"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+          {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
+        </div>
+        
+        <button type="submit" className="signup-button">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

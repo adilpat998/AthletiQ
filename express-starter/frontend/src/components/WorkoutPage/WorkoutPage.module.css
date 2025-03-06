@@ -1,0 +1,619 @@
+/* Main container for the WorkoutPage */
+.container {
+  padding: 30px;
+  background: linear-gradient(to bottom, #1a1e24, #282c34);
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+/* Title of the workout plan */
+.title {
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(45deg, #61dafb, #4fa8e0, #3a89c5);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Container for images */
+.imagesContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Image styling */
+.image {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  max-height: 400px; /* Added max-height to keep images from being too tall */
+  object-fit: contain; /* Changed from cover to contain to show full image */
+  background-color: rgba(30, 34, 40, 0.8); /* Added background color */
+  border-radius: 8px;
+  border: 3px solid rgba(97, 218, 251, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(97, 218, 251, 0.2);
+  transition: all 0.3s ease;
+  padding: 10px; /* Added padding to give some space around the image */
+}
+
+.image:hover {
+  transform: scale(1.02);
+  border-color: rgba(97, 218, 251, 0.8);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(97, 218, 251, 0.3);
+}
+
+/* Information section */
+.infoSection {
+  padding: 25px;
+  background: rgba(40, 44, 52, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 5px rgba(97, 218, 251, 0.1);
+  margin-top: 30px;
+  border: 1px solid rgba(97, 218, 251, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Description */
+.description {
+  font-size: 1.1rem;
+  color: #d0d0d0;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+/* Styling for workout plan details */
+.planDetails {
+  margin-top: 30px;
+}
+
+.weekDetails {
+  margin-bottom: 30px;
+  border-radius: 8px;
+  padding: 5px;
+  transition: all 0.3s ease;
+}
+
+.weekDetails:hover {
+  background: rgba(97, 218, 251, 0.05);
+  box-shadow: 0 0 15px rgba(97, 218, 251, 0.1);
+}
+
+.weekTitle {
+  font-size: 1.8rem;
+  color: #61dafb;
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(97, 218, 251, 0.3);
+  padding-bottom: 8px;
+}
+
+.dayContainer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.day {
+  width: calc(33.333% - 20px);
+  min-width: 200px;
+  background: rgba(30, 34, 40, 0.7);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.day:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 0 10px rgba(97, 218, 251, 0.2);
+  border-color: rgba(97, 218, 251, 0.2);
+}
+
+.dayTitle {
+  font-size: 1.3rem;
+  color: #4fa8e0;
+  margin-bottom: 10px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.exerciseList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.exercise {
+  font-size: 1rem;
+  color: #c0c0c0;
+  margin-bottom: 8px;
+  padding: 5px 10px;
+  border-left: 2px solid rgba(97, 218, 251, 0.3);
+  transition: all 0.2s ease;
+}
+
+.exercise:hover {
+  color: #61dafb;
+  border-left-color: #61dafb;
+  background: rgba(97, 218, 251, 0.05);
+  padding-left: 15px;
+}
+
+.errorText {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+}
+
+/* Workout buttons container for side-by-side display */
+.buttonsContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+/* Edit button styling */
+.editButton {
+  background: linear-gradient(45deg, #3a89c5, #61dafb);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(97, 218, 251, 0.3);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.editButton:hover {
+  background: linear-gradient(45deg, #61dafb, #3a89c5);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(97, 218, 251, 0.5);
+}
+
+/* Delete button styling */
+.deleteButton {
+  background: linear-gradient(45deg, #d9534f, #ff6b6b);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(217, 83, 79, 0.3);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.deleteButton:hover {
+  background: linear-gradient(45deg, #ff6b6b, #d9534f);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(217, 83, 79, 0.5);
+}
+
+/* Styling for create workout button */
+.createButton {
+  display: block;
+  margin: 2.5rem auto;
+  background: linear-gradient(45deg, #28a745, #5cb85c);
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.createButton:hover {
+  background: linear-gradient(45deg, #5cb85c, #28a745);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.5);
+}
+
+/* Reviews Section Styling */
+.reviewsSection {
+  margin-top: 40px;
+  background: rgba(40, 44, 52, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 5px rgba(97, 218, 251, 0.1);
+  padding: 25px;
+  border: 1px solid rgba(97, 218, 251, 0.1);
+}
+
+.reviewsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid rgba(97, 218, 251, 0.3);
+  padding-bottom: 12px;
+}
+
+.reviewsTitle {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #61dafb;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.averageRating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  background: rgba(30, 34, 40, 0.5);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.averageRating p {
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+.stars {
+  display: flex;
+}
+
+.star {
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.2);
+  margin-right: 5px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.filledStar {
+  color: #61dafb;
+  text-shadow: 0 0 10px rgba(97, 218, 251, 0.5);
+}
+
+.addReviewButton {
+  background: linear-gradient(45deg, #28a745, #5cb85c);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.addReviewButton:hover {
+  background: linear-gradient(45deg, #5cb85c, #28a745);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.5);
+}
+
+/* Reviews List Styling */
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reviewCard {
+  padding: 20px;
+  background: rgba(30, 34, 40, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.reviewCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(97, 218, 251, 0.1);
+  border-left-color: rgba(97, 218, 251, 0.3);
+}
+
+/* Highlight the user's own review */
+.userReview {
+  border-left: 4px solid #61dafb;
+  background: rgba(97, 218, 251, 0.07);
+}
+
+.userReview:hover {
+  border-left-color: #61dafb;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.reviewUsername {
+  margin: 0;
+  font-size: 18px;
+  color: #e0e0e0;
+  font-weight: bold;
+}
+
+.reviewDate {
+  color: #909090;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.reviewComment {
+  margin-bottom: 18px;
+  line-height: 1.6;
+  color: #d0d0d0;
+}
+
+.reviewActions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.editReviewButton,
+.deleteReviewButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.editReviewButton {
+  background: linear-gradient(45deg, #17a2b8, #4fa8e0);
+  color: white;
+  box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+}
+
+.editReviewButton:hover {
+  background: linear-gradient(45deg, #4fa8e0, #17a2b8);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.5);
+}
+
+.deleteReviewButton {
+  background: linear-gradient(45deg, #dc3545, #ff6b6b);
+  color: white;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.deleteReviewButton:hover {
+  background: linear-gradient(45deg, #ff6b6b, #dc3545);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.5);
+}
+
+/* Modal Styling */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: linear-gradient(to bottom, #282c34, #1a1e24);
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(97, 218, 251, 0.2);
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  color: white;
+}
+
+.modalHeader {
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(97, 218, 251, 0.2);
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #61dafb;
+  letter-spacing: 1px;
+}
+
+.modalCloseButton {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #909090;
+  transition: color 0.3s ease;
+}
+
+.modalCloseButton:hover {
+  color: #61dafb;
+}
+
+.modalBody {
+  padding: 25px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Form styling */
+.reviewForm .formGroup {
+  margin-bottom: 20px;
+}
+
+.reviewForm label {
+  display: block;
+  margin-bottom: 8px;
+  color: #e0e0e0;
+  font-weight: bold;
+}
+
+.reviewForm select,
+.reviewForm textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(97, 218, 251, 0.2);
+  background: rgba(30, 34, 40, 0.9);
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.reviewForm select:focus,
+.reviewForm textarea:focus {
+  outline: none;
+  border-color: #61dafb;
+  box-shadow: 0 0 8px rgba(97, 218, 251, 0.4);
+}
+
+.reviewForm select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2361dafb%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 12px auto;
+  padding-right: 30px;
+}
+
+.reviewForm textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submitReviewButton,
+.updateReviewButton {
+  background: linear-gradient(45deg, #28a745, #5cb85c);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+  letter-spacing: 0.5px;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submitReviewButton:hover,
+.updateReviewButton:hover {
+  background: linear-gradient(45deg, #5cb85c, #28a745);
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.5);
+}
+
+.confirmDeleteButton {
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #dc3545, #ff6b6b);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+}
+
+.confirmDeleteButton:hover {
+  background: linear-gradient(45deg, #ff6b6b, #dc3545);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(220, 53, 69, 0.5);
+}
+
+.cancelButton {
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #495057, #6c757d);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+}
+
+.cancelButton:hover {
+  background: linear-gradient(45deg, #6c757d, #495057);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(108, 117, 125, 0.5);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .day {
+    width: 100%;
+  }
+  
+  .imagesContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .image {
+    max-width: 100%;
+  }
+}

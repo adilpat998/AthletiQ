@@ -25,36 +25,64 @@ function LoginFormModal() {
       setErrors(serverResponse);
     } else {
       closeModal();
+      // Add window.location.reload() to refresh the page after successful login
+      window.location.reload();
+    }
+  };
+
+  const handleDemoLogin = async (e) => {
+    e.preventDefault();
+    
+    const response = await dispatch(
+      thunkLogin({
+        email: "demo@user.io",
+        password: "password"
+      })
+    );
+    
+    if (!response) {
+      closeModal();
+      // Add window.location.reload() to refresh the page after successful demo login
+      window.location.reload();
     }
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+    <div className="login-form-container">
+      <h1 className="login-form-title">Log In</h1>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
+          <label className="form-label">
+            Email
+          </label>
           <input
+            className="form-input"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+          {errors.email && <p className="error-message">{errors.email}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">
+            Password
+          </label>
           <input
+            className="form-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+          {errors.password && <p className="error-message">{errors.password}</p>}
+        </div>
+        
+        <button type="submit" className="login-button">Log In</button>
+        <a href="#" onClick={handleDemoLogin} className="demo-link">Log in as Demo User</a>
       </form>
-    </>
+    </div>
   );
 }
 
