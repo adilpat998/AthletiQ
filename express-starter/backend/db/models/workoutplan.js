@@ -1,5 +1,18 @@
+'use strict';
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  const WorkoutPlan = sequelize.define('WorkoutPlan', {
+  class WorkoutPlan extends Model {
+    static associate(models) {
+      // Define association with User model
+      WorkoutPlan.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE'
+      });
+    }
+  }
+
+  WorkoutPlan.init({
     id: {
       type: DataTypes.INTEGER,  
       allowNull: false,
@@ -35,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
-   
     image_url_1: {
       type: DataTypes.STRING, 
       allowNull: true 
@@ -45,16 +57,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true 
     }
   }, {
+    sequelize,
+    modelName: 'WorkoutPlan',
     tableName: 'WorkoutPlans',
     timestamps: false
   });
-
-  WorkoutPlan.associate = (models) => {
-    WorkoutPlan.belongsTo(models.User, {
-      foreignKey: 'user_id',
-      onDelete: 'CASCADE'
-    });
-  };
 
   return WorkoutPlan;
 };

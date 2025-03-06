@@ -1,5 +1,11 @@
 'use strict';
 
+
+let options = { tableName: 'WorkoutPlans' }; // Always define tableName
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('WorkoutPlans', [
