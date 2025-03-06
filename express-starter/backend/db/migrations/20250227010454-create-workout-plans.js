@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // Define schema in options if in production
+}
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('WorkoutPlans', {
@@ -54,7 +59,7 @@ module.exports = {
         type: Sequelize.STRING, // URL as a string
         allowNull: true // Allow this to be optional
       }
-    });
+    },options);
   },
 
   down: async (queryInterface, Sequelize) => {
