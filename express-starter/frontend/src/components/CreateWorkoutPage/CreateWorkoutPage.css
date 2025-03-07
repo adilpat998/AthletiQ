@@ -1,3 +1,4 @@
+/* CreateWorkoutPage.css */
 /* Container styling */
 .create-workout-container {
     max-width: 600px;
@@ -8,99 +9,193 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
     text-align: center; 
-}
+  }
   
-/* Heading */
-h1 {
+  /* Heading */
+  .create-workout-container h1 {
     text-align: center;
     margin-bottom: 20px;
-}
+    color: #fff;
+  }
   
-/* Form styling */
-form {
+  /* Form styling */
+  form {
     display: flex;
     flex-direction: column;
     align-items: center; 
-}
+  }
   
-/* Labels */
-label {
+  /* Error handling styles */
+  .error-banner {
+    background-color: rgba(211, 47, 47, 0.8);
+    color: #fff;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid #ff5252;
+    width: 90%;
+    text-align: left;
+  }
+  
+  .warning-banner {
+    background-color: rgba(255, 143, 0, 0.8);
+    color: #fff;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid #ffab40;
+    width: 90%;
+    text-align: left;
+  }
+  
+  .warning-banner p {
+    margin: 5px 0;
+  }
+  
+  .error-message {
+    color: #ff5252;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+  
+  .plan-error {
+    margin-bottom: 15px;
+    width: 90%;
+  }
+  
+  .error-input {
+    border: 1px solid #ff5252 !important;
+    background-color: rgba(255, 0, 0, 0.1) !important;
+  }
+  
+  /* Form group */
+  .form-group {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Labels */
+  label {
     font-weight: bold;
     margin: 10px 0 5px;
     display: block;
     text-align: center;
-}
+    color: #fff;
+  }
   
-/* Input fields */
-input, textarea {
+  /* Input fields */
+  input, textarea {
     width: 90%;
     max-width: 500px; 
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #444;
     background-color: #333;
     color: #fff;
     font-size: 14px;
     display: block;
-    margin: 0 auto; 
-}
+    margin: 0 auto;
+    transition: border-color 0.3s, background-color 0.3s;
+  }
   
-textarea {
+  textarea {
     min-height: 80px;
     resize: vertical;
-}
-
-/* Ensure exercise entry fields stay full width */
-.exercise-entry textarea {
+  }
+  
+  /* Focus states */
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    background-color: #3a3a3a;
+  }
+  
+  input:disabled, textarea:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  /* Ensure exercise entry fields stay full width */
+  .exercise-entry textarea {
     width: 100%;
     max-width: 100%; 
-}
+  }
   
-/* Flexbox for small input sections */
-.flex-inputs {
+  .exercise-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; 
+    margin-bottom: 10px;
+  }
+  
+  .exercise-hint {
+    color: #ffab40;
+    font-size: 0.8rem;
+    margin-top: 3px;
+    font-style: italic;
+    text-align: center;
+  }
+  
+  /* Flexbox for small input sections */
+  .flex-inputs {
     display: flex;
     justify-content: center; 
     gap: 10px;
     width: 100%;
-}
+  }
   
-.flex-inputs div {
+  .flex-inputs div {
     flex: 1;
     text-align: center;
-}
+  }
   
-/* Week container */
-.week-container {
+  /* Week container */
+  .week-container {
     margin-top: 20px;
     padding: 15px;
     border: 1px solid #444;
     border-radius: 8px;
     background-color: #111;
     text-align: center;
-    width: 100%; 
-}
+    width: 90%; 
+    margin-bottom: 20px;
+  }
   
-/* Exercise entry section */
-.exercise-entry {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; 
-    margin-bottom: 10px;
-}
+  .week-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #444;
+    color: #4caf50;
+  }
   
-.exercise-entry label {
-    margin-bottom: 5px;
-}
+  /* Workout instructions */
+  .workout-instructions {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(76, 175, 80, 0.2);
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+    width: 90%;
+    text-align: left;
+  }
   
-/* Remove default outline on focus */
-input:focus, textarea:focus {
-    outline: none;
-    border-color: #4caf50;
-}
+  .workout-instructions h3 {
+    margin-top: 0;
+    color: #4caf50;
+    font-size: 1.1rem;
+  }
   
-/* Submit button */
-button {
+  .workout-instructions p {
+    margin: 5px 0;
+    color: #ddd;
+    font-size: 0.9rem;
+  }
+  
+  /* Submit button */
+  .submit-button {
     margin-top: 20px;
     padding: 12px;
     background-color: #4caf50;
@@ -110,16 +205,21 @@ button {
     border-radius: 5px;
     font-size: 16px;
     width: 90%;
-    max-width: 300px; 
-}
+    max-width: 300px;
+    transition: background-color 0.3s;
+  }
   
-button:disabled {
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  
+  .submit-button:disabled {
     background-color: #777;
     cursor: not-allowed;
-}
+  }
   
-/* Responsive Design */
-@media (max-width: 768px) {
+  /* Responsive Design */
+  @media (max-width: 768px) {
     .create-workout-container {
       max-width: 90%;
     }
@@ -127,4 +227,9 @@ button:disabled {
     input, textarea {
       width: 100%;
     }
-}
+    
+    .flex-inputs {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }

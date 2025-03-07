@@ -19,6 +19,12 @@ const WorkoutPage = () => {
   const [editingReview, setEditingReview] = useState(null);
   const [reviewsLoading, setReviewsLoading] = useState(true);
   
+  // Error handling states for reviews
+  const [reviewErrors, setReviewErrors] = useState({});
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  
   // Modal states
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -33,7 +39,8 @@ const WorkoutPage = () => {
           const data = await response.json();
           setWorkoutPlan(data);
         } else {
-          throw new Error('Failed to fetch the workout plan');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to fetch the workout plan');
         }
       } catch (err) {
         setError(err.message);
@@ -62,6 +69,9 @@ const WorkoutPage = () => {
           }));
           
           setReviews(processedReviews);
+        } else {
+          const errorData = await response.json();
+          console.error('Error fetching reviews:', errorData.message || 'Failed to fetch reviews');
         }
       } catch (err) {
         console.error('Error fetching reviews:', err);
@@ -84,16 +94,46 @@ const WorkoutPage = () => {
       if (response.ok) {
         navigate('/');
       } else {
-        throw new Error('Failed to delete the workout plan.');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete the workout plan.');
       }
     } catch (err) {
       setError(err.message);
     }
   };
 
+  // Validate review input
+  const validateReview = (review) => {
+    const errors = {};
+    
+    if (!review.rating || review.rating < 1 || review.rating > 5) {
+      errors.rating = 'Rating must be between 1 and 5';
+    }
+    
+    if (!review.comment) {
+      errors.comment = 'Comment is required';
+    } else if (review.comment.trim().length < 5) {
+      errors.comment = 'Comment must be at least 5 characters long';
+    } else if (review.comment.trim().length > 500) {
+      errors.comment = 'Comment must be less than 500 characters';
+    }
+    
+    return errors;
+  };
+
   // Handle review form input changes
   const handleReviewChange = (e) => {
     const { name, value } = e.target;
+    
+    // Clear errors when user types
+    if (reviewErrors[name]) {
+      setReviewErrors(prev => {
+        const updatedErrors = { ...prev };
+        delete updatedErrors[name];
+        return updatedErrors;
+      });
+    }
+    
     if (editingReview) {
       setEditingReview({
         ...editingReview,
@@ -110,10 +150,21 @@ const WorkoutPage = () => {
   // Submit a new review
   const handleSubmitReview = async (e) => {
     e.preventDefault();
+    
     if (!currentUser) {
-      alert('You must be logged in to leave a review');
+      setReviewErrors({ auth: 'You must be logged in to leave a review' });
       return;
     }
+    
+    // Validate review before submitting
+    const validationErrors = validateReview(newReview);
+    if (Object.keys(validationErrors).length > 0) {
+      setReviewErrors(validationErrors);
+      return;
+    }
+    
+    setSubmitLoading(true);
+    setReviewErrors({});
 
     try {
       const response = await csrfFetch('/api/reviews', {
@@ -140,11 +191,29 @@ const WorkoutPage = () => {
         setNewReview({ rating: 5, comment: '' });
         setIsCreateModalOpen(false); 
       } else {
-        throw new Error('Failed to submit review');
+        const errorData = await response.json();
+        if (errorData.errors) {
+          // Handle validation errors from server
+          const formattedErrors = {};
+          errorData.errors.forEach(err => {
+            if (err.toLowerCase().includes('rating')) {
+              formattedErrors.rating = err;
+            } else if (err.toLowerCase().includes('comment')) {
+              formattedErrors.comment = err;
+            } else {
+              formattedErrors.general = err;
+            }
+          });
+          setReviewErrors(formattedErrors);
+        } else {
+          throw new Error(errorData.message || 'Failed to submit review');
+        }
       }
     } catch (err) {
       console.error('Error submitting review:', err);
-      alert('Failed to submit review. Please try again.');
+      setReviewErrors({ general: err.message || 'Network error. Please try again.' });
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -155,12 +224,23 @@ const WorkoutPage = () => {
       rating: review.rating,
       comment: review.comment
     });
+    setReviewErrors({});
     setIsEditModalOpen(true);
   };
 
   // Update an existing review
   const handleUpdateReview = async (e) => {
     e.preventDefault();
+    
+    // Validate review before updating
+    const validationErrors = validateReview(editingReview);
+    if (Object.keys(validationErrors).length > 0) {
+      setReviewErrors(validationErrors);
+      return;
+    }
+    
+    setUpdateLoading(true);
+    setReviewErrors({});
     
     try {
       const response = await csrfFetch(`/api/reviews/${editingReview.id}`, {
@@ -188,22 +268,44 @@ const WorkoutPage = () => {
         setEditingReview(null);
         setIsEditModalOpen(false);
       } else {
-        throw new Error('Failed to update review');
+        const errorData = await response.json();
+        if (errorData.errors) {
+          // Handle validation errors from server
+          const formattedErrors = {};
+          errorData.errors.forEach(err => {
+            if (err.toLowerCase().includes('rating')) {
+              formattedErrors.rating = err;
+            } else if (err.toLowerCase().includes('comment')) {
+              formattedErrors.comment = err;
+            } else {
+              formattedErrors.general = err;
+            }
+          });
+          setReviewErrors(formattedErrors);
+        } else {
+          throw new Error(errorData.message || 'Failed to update review');
+        }
       }
     } catch (err) {
       console.error('Error updating review:', err);
-      alert('Failed to update review. Please try again.');
+      setReviewErrors({ general: err.message || 'Network error. Please try again.' });
+    } finally {
+      setUpdateLoading(false);
     }
   };
 
   // Open delete confirmation modal
   const openDeleteModal = (reviewId) => {
     setReviewToDelete(reviewId);
+    setReviewErrors({});
     setIsDeleteModalOpen(true);
   };
 
   // Delete a review
   const handleDeleteReview = async () => {
+    setDeleteLoading(true);
+    setReviewErrors({});
+    
     try {
       const response = await csrfFetch(`/api/reviews/${reviewToDelete}`, { 
         method: 'DELETE' 
@@ -214,11 +316,14 @@ const WorkoutPage = () => {
         setIsDeleteModalOpen(false);
         setReviewToDelete(null);
       } else {
-        throw new Error('Failed to delete review');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete review');
       }
     } catch (err) {
       console.error('Error deleting review:', err);
-      alert('Failed to delete review. Please try again.');
+      setReviewErrors({ general: err.message || 'Failed to delete review. Please try again.' });
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -328,7 +433,11 @@ const WorkoutPage = () => {
           {canAddReview() && (
             <button 
               className={styles.addReviewButton}
-              onClick={() => setIsCreateModalOpen(true)}
+              onClick={() => {
+                setReviewErrors({});
+                setNewReview({ rating: 5, comment: '' });
+                setIsCreateModalOpen(true);
+              }}
             >
               Add Review
             </button>
@@ -407,10 +516,22 @@ const WorkoutPage = () => {
       {/* Create Review Modal */}
       <Modal
         isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
+        onClose={() => {
+          if (!submitLoading) {
+            setIsCreateModalOpen(false);
+            setReviewErrors({});
+          }
+        }}
         title="Add Review"
       >
         <form onSubmit={handleSubmitReview} className={styles.reviewForm}>
+          {reviewErrors.general && (
+            <div className={styles.errorMessage}>{reviewErrors.general}</div>
+          )}
+          {reviewErrors.auth && (
+            <div className={styles.errorMessage}>{reviewErrors.auth}</div>
+          )}
+          
           <div className={styles.formGroup}>
             <label htmlFor="rating">Rating:</label>
             <select 
@@ -418,6 +539,8 @@ const WorkoutPage = () => {
               name="rating" 
               value={newReview.rating} 
               onChange={handleReviewChange}
+              className={reviewErrors.rating ? styles.inputError : ''}
+              disabled={submitLoading}
               required
             >
               <option value="5">5 Stars</option>
@@ -426,7 +549,11 @@ const WorkoutPage = () => {
               <option value="2">2 Stars</option>
               <option value="1">1 Star</option>
             </select>
+            {reviewErrors.rating && (
+              <p className={styles.fieldError}>{reviewErrors.rating}</p>
+            )}
           </div>
+          
           <div className={styles.formGroup}>
             <label htmlFor="comment">Comment:</label>
             <textarea 
@@ -435,10 +562,26 @@ const WorkoutPage = () => {
               value={newReview.comment} 
               onChange={handleReviewChange}
               rows="4"
+              placeholder="Share your thoughts on this workout plan (min. 5 characters)"
+              className={reviewErrors.comment ? styles.inputError : ''}
+              disabled={submitLoading}
               required
             ></textarea>
+            {reviewErrors.comment && (
+              <p className={styles.fieldError}>{reviewErrors.comment}</p>
+            )}
+            <div className={styles.charCount}>
+              {newReview.comment.length}/500 characters
+            </div>
           </div>
-          <button type="submit" className={styles.submitReviewButton}>Submit Review</button>
+          
+          <button 
+            type="submit" 
+            className={styles.submitReviewButton}
+            disabled={submitLoading}
+          >
+            {submitLoading ? 'Submitting...' : 'Submit Review'}
+          </button>
         </form>
       </Modal>
 
@@ -446,13 +589,20 @@ const WorkoutPage = () => {
       <Modal
         isOpen={isEditModalOpen}
         onClose={() => {
-          setIsEditModalOpen(false);
-          setEditingReview(null);
+          if (!updateLoading) {
+            setIsEditModalOpen(false);
+            setEditingReview(null);
+            setReviewErrors({});
+          }
         }}
         title="Edit Review"
       >
         {editingReview && (
           <form onSubmit={handleUpdateReview} className={styles.reviewForm}>
+            {reviewErrors.general && (
+              <div className={styles.errorMessage}>{reviewErrors.general}</div>
+            )}
+            
             <div className={styles.formGroup}>
               <label htmlFor="edit-rating">Rating:</label>
               <select 
@@ -460,6 +610,8 @@ const WorkoutPage = () => {
                 name="rating" 
                 value={editingReview.rating} 
                 onChange={handleReviewChange}
+                className={reviewErrors.rating ? styles.inputError : ''}
+                disabled={updateLoading}
                 required
               >
                 <option value="5">5 Stars</option>
@@ -468,7 +620,11 @@ const WorkoutPage = () => {
                 <option value="2">2 Stars</option>
                 <option value="1">1 Star</option>
               </select>
+              {reviewErrors.rating && (
+                <p className={styles.fieldError}>{reviewErrors.rating}</p>
+              )}
             </div>
+            
             <div className={styles.formGroup}>
               <label htmlFor="edit-comment">Comment:</label>
               <textarea 
@@ -477,10 +633,26 @@ const WorkoutPage = () => {
                 value={editingReview.comment} 
                 onChange={handleReviewChange}
                 rows="4"
+                placeholder="Share your thoughts on this workout plan (min. 5 characters)"
+                className={reviewErrors.comment ? styles.inputError : ''}
+                disabled={updateLoading}
                 required
               ></textarea>
+              {reviewErrors.comment && (
+                <p className={styles.fieldError}>{reviewErrors.comment}</p>
+              )}
+              <div className={styles.charCount}>
+                {editingReview.comment.length}/500 characters
+              </div>
             </div>
-            <button type="submit" className={styles.updateReviewButton}>Update Review</button>
+            
+            <button 
+              type="submit" 
+              className={styles.updateReviewButton}
+              disabled={updateLoading}
+            >
+              {updateLoading ? 'Updating...' : 'Update Review'}
+            </button>
           </form>
         )}
       </Modal>
@@ -489,22 +661,37 @@ const WorkoutPage = () => {
       <Modal
         isOpen={isDeleteModalOpen}
         onClose={() => {
-          setIsDeleteModalOpen(false);
-          setReviewToDelete(null);
+          if (!deleteLoading) {
+            setIsDeleteModalOpen(false);
+            setReviewToDelete(null);
+            setReviewErrors({});
+          }
         }}
         title="Delete Review"
       >
+        {reviewErrors.general && (
+          <div className={styles.errorMessage}>{reviewErrors.general}</div>
+        )}
+        
         <p>Are you sure you want to delete this review?</p>
         <div className={styles.modalActions}>
-          <button onClick={handleDeleteReview} className={styles.confirmDeleteButton}>
-            Yes, Delete
+          <button 
+            onClick={handleDeleteReview} 
+            className={styles.confirmDeleteButton}
+            disabled={deleteLoading}
+          >
+            {deleteLoading ? 'Deleting...' : 'Yes, Delete'}
           </button>
           <button 
             onClick={() => {
-              setIsDeleteModalOpen(false);
-              setReviewToDelete(null);
+              if (!deleteLoading) {
+                setIsDeleteModalOpen(false);
+                setReviewToDelete(null);
+                setReviewErrors({});
+              }
             }} 
             className={styles.cancelButton}
+            disabled={deleteLoading}
           >
             Cancel
           </button>
