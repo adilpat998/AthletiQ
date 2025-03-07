@@ -29,23 +29,72 @@ const validateSignup = [
 ];
 
 // Sign up
-router.post('/', validateSignup, async (req, res) => {
+router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, username } = req.body;
 
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({ email, username, hashedPassword });
+    try {
+        // Check if email already exists
+        const existingEmail = await User.findOne({ where: { email } });
+        if (existingEmail) {
+            const err = new Error('Email already exists');
+            err.status = 400;
+            err.title = 'Signup failed';
+            err.errors = { email: 'This email is already in use.' };
+            return next(err);
+        }
 
-    const safeUser = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-    };
+        // Check if username already exists
+        const existingUsername = await User.findOne({ where: { username } });
+        if (existingUsername) {
+            const err = new Error('Username already exists');
+            err.status = 400;
+            err.title = 'Signup failed';
+            err.errors = { username: 'This username is already taken.' };
+            return next(err);
+        }
 
-    await setTokenCookie(res, safeUser);
+        const hashedPassword = bcrypt.hashSync(password);
+        const user = await User.create({ email, username, hashedPassword });
 
-    return res.json({
-        user: safeUser
-    });
+        const safeUser = {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+        };
+
+        await setTokenCookie(res, safeUser);
+
+        return res.json({
+            user: safeUser
+        });
+    } catch (error) {
+        // Handle Sequelize unique constraint errors
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            const err = new Error('User already exists');
+            err.status = 400;
+            err.title = 'Signup failed';
+            
+            // Identify which field caused the constraint error
+            const errors = {};
+            error.errors.forEach(e => {
+                if (e.path === 'email') {
+                    errors.email = 'This email is already in use.';
+                } else if (e.path === 'username') {
+                    errors.username = 'This username is already taken.';
+                }
+            });
+            
+            err.errors = errors;
+            return next(err);
+        }
+        
+        // Handle other errors
+        const err = new Error('Signup failed');
+        err.status = 500;
+        err.title = 'Server Error';
+        err.errors = { server: 'An unexpected error occurred. Please try again.' };
+        return next(err);
+    }
 });
 
 // Restore session user

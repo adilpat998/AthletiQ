@@ -47,20 +47,32 @@ export const thunkLogin = (credentials) => async dispatch => {
 };
 
 export const thunkSignup = (user) => async (dispatch) => {
-    const response = await csrfFetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
-    });
+    try {
+        const response = await csrfFetch("/api/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
 
-    if (response.ok) {
         const data = await response.json();
         dispatch(setUser(data));
-    } else if (response.status < 500) {
-        const errorMessages = await response.json();
-        return errorMessages
-    } else {
-        return { server: "Something went wrong. Please try again" }
+        return null;
+    } catch (response) {
+        try {
+            const errorData = await response.json();
+            console.log("Signup error:", errorData);
+            
+            // Check for errors object and return it
+            if (errorData.errors) {
+                return errorData.errors;
+            }
+            
+            // Fallback to message or generic error
+            return { server: errorData.message || "Something went wrong. Please try again" };
+        } catch (jsonError) {
+            console.error("Error parsing response:", jsonError);
+            return { server: "Something went wrong. Please try again" };
+        }
     }
 };
 
